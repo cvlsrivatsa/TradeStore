@@ -18,6 +18,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
 public class Store {
+    private static final int MATURITY_DATE_REJECT_THRESHOLD = 1000; // milliseconds
     private final Map<String, TreeMap<Integer, Trade>> tradeMap = new HashMap<>();
     private final Lock lock = new ReentrantLock();
 
@@ -51,10 +52,10 @@ public class Store {
                 .collect(Collectors.toList());
     }
 
-    public void saveTrade(final Trade trade) {
+    public boolean saveTrade(final Trade trade) {
         Date nowDate = new Date();
-        if (trade.getMaturityDate().before(nowDate)) {
-            return;
+        if (trade.getMaturityDate().before(new Date(nowDate.getTime() - MATURITY_DATE_REJECT_THRESHOLD))) {
+            return false;
         }
         lock.lock();
         try {
@@ -68,6 +69,7 @@ public class Store {
         } finally {
             lock.unlock();
         }
+        return true;
     }
 
     private void updateExpiry() {

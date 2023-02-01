@@ -1,12 +1,13 @@
 package org.example;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 
 import java.util.Date;
 
-@Data
+@Getter
 @Builder
 public class Trade {
     @NonNull
@@ -17,6 +18,8 @@ public class Trade {
     private String bookId;
     @NonNull
     private Date maturityDate;
+    @Setter
     private Date createdDate;
+    @Setter
     private boolean isExpired;
 }
