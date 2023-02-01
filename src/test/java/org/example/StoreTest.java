@@ -15,7 +15,7 @@ class StoreTest {
     Store store = new Store();
 
     @Test
-    void saveTradeTest() {
+    public void saveTradeTest() {
         Trade t = Trade.builder()
                 .tradeId("T1")
                 .version(1)
