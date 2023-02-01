@@ -10,7 +10,7 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(MockitoJUnitRunner.class)
-class StoreTest {
+public class StoreTest {
     @InjectMocks
     Store store = new Store();
 
